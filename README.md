@@ -28,7 +28,19 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+1. Desktop
+![](./images/Frontend%20Mentor%20Tip%20calculator%20app%20Desktop.png)
+
+2. Hover state
+![](./images/Hover%20state.png)
+
+3. Error states
+![](./images/Error%20state.png)
+
+![](./images/Error%20state%202.png)
+
+4. Mobile
+![](./images/Mobile.png)
 
 ### Links
 
