@@ -46,7 +46,7 @@ Users should be able to:
 
 <!-- - Solution URL: [Add solution URL here](https://your-solution-url.com) -->
 
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [Tip calculator app live site](https://auri222.github.io/Tip-calculator-app-with-javascript/)
 
 ## My process
 
