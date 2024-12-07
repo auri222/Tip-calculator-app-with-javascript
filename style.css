@@ -1,0 +1,258 @@
+:root {
+  --Strong_cyan: hsl(172, 67%, 45%);
+  --Very_dark_cyan: hsl(183, 100%, 15%);
+  --Dark_grayish_cyan: hsl(186, 14%, 43%);
+  --Grayish_cyan: hsl(184, 14%, 56%);
+  --Light_grayish_cyan: hsl(185, 41%, 84%);
+  --Very_light_grayish_cyan: hsl(189, 41%, 97%);
+  --White: hsl(0, 0%, 100%);
+}
+
+@font-face {
+  font-family: 'SpaceMono';
+  font-weight: 700;
+  src: url('./font/SpaceMono-Bold.ttf') format('truetype');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input[type=text], input[type=radio]+label {
+  font-size: 24px;
+}
+
+input[type=text] {
+  text-align: right;
+  color: var(--Very_dark_cyan);
+  font-weight: 700;
+  width: 100%;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  padding: 0.5rem 1rem;
+  background: var(--Very_light_grayish_cyan);
+  transition: 0.5s;
+}
+
+input[type=text]:focus {
+  border: 2px solid var(--Strong_cyan);
+}
+
+.input-title {
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'SpaceMono';
+  background: var(--Light_grayish_cyan);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  padding: 2rem;
+}
+
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1;
+
+  gap: 1.2rem;
+  background: var(--White);
+  padding: 2rem 2rem;
+  border-radius: 16px;
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+  padding: 2rem;
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  padding: 1rem 0;
+}
+
+.input-title {
+  margin-bottom: 0.5rem;
+}
+
+.input-wrap {
+  position: relative;
+}
+
+.input-wrap img {
+  position: absolute;
+  left: 16px;
+  top: 14px;
+}
+
+.col:last-of-type {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  background: var(--Very_dark_cyan);
+  padding: 1.2rem;
+  border-radius: 16px;
+}
+
+.btn {
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--Very_dark_cyan);
+  background: var(--Strong_cyan);
+  cursor: pointer;
+  transition: background 0.5s;
+}
+
+.btn:hover {
+  background: var(--Light_grayish_cyan);
+}
+
+.result-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.radio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.825rem;
+}
+
+.radio-button input[type=radio] {
+  display: none;
+}
+
+.radio-button label {
+  display: inline-block;
+  width: 100%;
+  padding: 6px 0;
+  border-radius: 4px;
+  text-align: center;
+  background-color: var(--Very_dark_cyan);
+  color: var(--Very_light_grayish_cyan);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.radio-button label:hover,
+.radio-button label:focus,
+.radio-button input[type=radio]:checked + label {
+  background-color: var(--Light_grayish_cyan);
+  color: var(--Very_dark_cyan);
+}
+
+.result-title h2 {
+  color: var(--Very_light_grayish_cyan);
+  font-size: 1rem;
+}
+
+.result-title p {
+  color: var(--Grayish_cyan);
+  font-size: 0.825rem;
+}
+
+.result-price {
+  font-size: 2rem;
+  color: var(--Strong_cyan);
+}
+
+/* Input success and error states */
+.noOfPeople__errorText, 
+.bill__errorText, 
+.tip__errorText {
+  color: tomato;
+  animation: appear 0.1s;
+}
+
+.hidden {
+  display: none;
+}
+
+.input-error {
+  border: 2px solid tomato !important;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media only screen and (min-width: 580px) {
+  .container{
+    margin: 0 1rem;
+    padding: 0 1rem;
+  }
+
+  .radio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .container{
+    margin: 0 auto;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 3rem;
+  }
+
+  .radio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .result-wrapper {
+    padding: 2rem;
+  }
+  
+  .btn {
+    /* top right&left bottom */
+    margin: 0 2rem 2rem; 
+  }
+} 

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Tip calculator app</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="./images/logo.svg" alt="Logo">
+    </div>
+    <div class="grid">
+      <div class="col">
+        <form>
+          <div class="form-control">
+            <div class="input-title">
+              <p>Bill</p>
+              <p class="bill__errorText hidden"></p>
+            </div>
+            <div class="input-wrap">
+              <input type="text" name="bill" id="bill" placeholder="0">
+              <img src="./images/icon-dollar.svg" alt="Dollar icon">
+            </div>
+          </div>
+          <div class="form-control">
+            <div class="input-title">
+              <p>Select Tip %</p>
+              <p class="tip__errorText hidden"></p>
+            </div>
+            <div class="radio-grid">
+              <div class="radio-button">
+                <input type="radio" name="percent" id="percen1" value="5">
+                <label for="percent1">
+                  <span>5%</span>
+                </label>
+              </div>
+              <div class="radio-button">
+                <input type="radio" name="percent" id="percent2" value="10">
+                <label for="percent2">
+                  <span>10%</span>
+                </label>
+              </div>
+              <div class="radio-button">
+                <input type="radio" name="percent" id="percent3" value="15">
+                <label for="percent3">
+                  <span>15%</span>
+                </label>
+              </div>
+              <div class="radio-button">
+                <input type="radio" name="percent" id="percent4" value="25">
+                <label for="percent4">
+                  <span>25%</span>
+                </label>
+              </div>
+              <div class="radio-button">
+                <input type="radio" name="percent" id="percent5" value="50">
+                <label for="percent5">
+                  <span>50%</span>
+                </label>
+              </div>
+              <div class="tip-custom">
+                <input type="text" name="custom" id="percent6" placeholder="Custom">
+              </div>
+            </div>
+          </div>
+          <div class="form-control">
+            <div class="input-title">
+              <p>Number of People</p>
+              <p class="noOfPeople__errorText hidden"></p>
+            </div>
+            <div class="input-wrap">
+              <input type="text" name="number-of-people" id="number-of-people" placeholder="0">
+              <img src="./images/icon-person.svg" alt="Dollar icon">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col">
+        <div class="result-wrapper">
+          <div class="result">
+            <div class="result-title">
+              <h2>Tip Amount</h2>
+              <p>/ person</p>
+            </div>
+            <p class="result-price">$<span id="tip">0.00</span></p>
+          </div>
+          <div class="result">
+            <div class="result-title">
+              <h2>Total</h2>
+              <p>/ person</p>
+            </div>
+            <p class="result-price">$<span id="total">0.00</span></p>
+          </div>
+        </div>
+        <button class="btn btn-reset">Reset</button>
+      </div>
+    </div>
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+      Coded by <a href="#">Your Name Here</a>.
+    </div>
+  </div>
+
+
+  <script>
+    function roundDecimals(num) {
+      return (Math.ceil(num * 100) / 100);
+    }
+
+    function totalTip(bill, percent_tip) {
+      return roundDecimals(((bill * percent_tip) / 100))
+    }
+
+    function tipAmountPerPerson(total_tip, no_of_people) {
+      return roundDecimals((total_tip / no_of_people));
+    }
+
+    function totalPerPerson(bill, total_tip, no_of_people) {
+      return roundDecimals(((bill + total_tip) / no_of_people));
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Initial
+      let tip_percent = 0;
+      let total = 0;
+      let bill = 0;
+      let tip_custom = 0;
+      let tip_radio = 0;
+      let noOfPeople = 0;
+
+      // Input values
+      let input_noOfPeople = document.getElementById('number-of-people');
+      let input_bill = document.getElementById('bill');
+      let input_tip_custom = document.getElementById('percent6');
+      let radio_btns = document.getElementsByClassName('radio-button');
+      let tip_amount_per_person_rs = document.getElementById('tip');
+      let total_per_person_rs = document.getElementById('total');
+
+      //Error text
+      let bill_errText = document.getElementsByClassName('bill__errorText')[0];
+      let tip_errText = document.getElementsByClassName('tip__errorText')[0];
+      let noOfPeople_errText = document.getElementsByClassName('noOfPeople__errorText')[0];
+
+      // Reset button
+      let reset = document.getElementsByClassName('btn-reset')[0];
+
+      // Handle User's input
+      input_bill.addEventListener('keyup', () => {
+        let temp = input_bill.value.trim();
+
+        if (isNaN(temp)) {
+          bill_errText.classList.remove('hidden');
+          bill_errText.innerHTML = "Please type a number!";
+          input_bill.classList.add('input-error');
+        }
+        else {
+          bill_errText.classList.add('hidden');
+          bill_errText.innerHTML = "";
+          input_bill.classList.remove('input-error');
+          bill = parseFloat(temp);
+        }
+      });
+
+      input_tip_custom.addEventListener('keyup', () => {
+        let temp = input_tip_custom.value.trim();
+
+        if (isNaN(temp)) {
+          tip_errText.classList.remove('hidden');
+          tip_errText.innerHTML = "Please type a number!";
+          input_tip_custom.classList.add('input-error');
+        }
+        else if (!Number.isInteger(Number(temp))) {
+          noOfPeople_errText.classList.remove('hidden');
+          noOfPeople_errText.innerHTML = "Please type an integer!";
+          input_noOfPeople.classList.add('input-error');
+        }
+        else {
+          tip_errText.classList.add('hidden');
+          tip_errText.innerHTML = "";
+          input_tip_custom.classList.remove('input-error');
+          tip_custom = parseInt(temp);
+        }
+
+      });
+
+      // If user click a tip button 
+      for (let index = 0; index < radio_btns.length; index++) {
+        radio_btns[index].addEventListener('click', function () {
+          // console.log(this.children[0]);
+          // 1. Get input value
+          tip_radio = parseInt(this.children[0].value);
+
+          // 2. Block the custom field
+          input_tip_custom.disabled = true;
+
+          //3. Checked the radio button
+          this.children[0].checked = true;
+        })
+      }
+
+      input_noOfPeople.addEventListener('keyup', () => {
+        let temp = input_noOfPeople.value.trim();
+        // console.log(Number.isInteger(Number(temp)));
+        if (isNaN(temp)) {
+          noOfPeople_errText.classList.remove('hidden');
+          noOfPeople_errText.innerHTML = "Please type a number!";
+          input_noOfPeople.classList.add('input-error');
+        }
+        else if (!Number.isInteger(Number(temp))) {
+          noOfPeople_errText.classList.remove('hidden');
+          noOfPeople_errText.innerHTML = "Please type an integer!";
+          input_noOfPeople.classList.add('input-error');
+        }
+        else {
+          noOfPeople_errText.classList.add('hidden');
+          noOfPeople_errText.innerHTML = "";
+          input_noOfPeople.classList.remove('input-error');
+          noOfPeople = parseInt(temp);
+        };
+
+        tip_percent = tip_custom > 0 ? tip_custom : tip_radio;
+
+        let total_tip = totalTip(bill, tip_percent);
+        let tip_amount_per_person = tipAmountPerPerson(total_tip, noOfPeople);
+        let total_per_person = totalPerPerson(bill, total_tip, noOfPeople);
+
+        tip_amount_per_person_rs.innerText = tip_amount_per_person > 0 ? tip_amount_per_person : '0.00';
+        total_per_person_rs.innerText = total_per_person > 0 ? total_per_person : '0.00';
+      });
+
+
+      // Handle reset button
+      reset.addEventListener('click', () => {
+        tip_percent = 0;
+        total = 0;
+        bill = 0;
+        tip_custom = 0;
+        tip_radio = 0;
+        noOfPeople = 0;
+        input_tip_custom.disabled = false;
+        input_tip_custom.value = "";
+        input_bill.value = "";
+        input_noOfPeople.value = "";
+        tip_amount_per_person_rs.innerText = '0.00';
+        total_per_person_rs.innerText = '0.00';
+
+        for (let index = 0; index < radio_btns.length; index++) {
+          radio_btns[index].children[0].checked = false;
+        }
+      });
+
+    })
+  </script>
+</body>
+
+</html>
